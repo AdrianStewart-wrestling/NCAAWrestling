@@ -6474,11 +6474,11 @@ const resultData = [
     round: "Finals",
     weight: "174",
     bout: 637,
-    winner: "Michael Kemerer",
-    winner_school: "Iowa",
-    loser: "Carter Starocci",
-    loser_school: "Penn State",
-    result: "Dec 8-1"
+    winner: "Carter Starocci",
+    winner_school: "Penn State",
+    loser: "Michael Kemmerer",
+    loser_school: "Iowa",
+    result: "SV-1 3-1"
   },
   {
     round: "Finals",
