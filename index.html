@@ -4,21 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NCAA Wrestling Tournament History</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #252530;
---surface:   #303039;
---card:      #3a3a45;
-      --border:    #2a2a38;
-      --gold:      #e8c444;
-      --gold-dim:  #a8892a;
-      --red:       #c0392b;
-      --text:      #f0ede6;
-      --muted:     #7a7a8c;
-      --accent:    #3a6cf4;
+      --bg:        #F5F3EE;
+      --surface:   #EDEAE3;
+      --card:      #FFFFFF;
+      --border:    #D4C9B8;
+      --gold:      #C1440E;
+      --gold-dim:  #9A3309;
+      --red:       #A32D2D;
+      --text:      #1A1A2E;
+      --muted:     #8A8A9A;
+      --accent:    #185FA5;
     }
 
     html, body {
@@ -28,22 +28,14 @@
       font-family: 'DM Sans', sans-serif;
     }
 
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
-
-    /* ── DIAGONAL ACCENT BAR ── */
+    /* ── SUBTLE TOP ACCENT ── */
     body::after {
       content: '';
       position: fixed;
-      top: -120px; right: -80px;
-      width: 420px; height: 420px;
-      background: radial-gradient(circle at 70% 30%, rgba(232,196,68,.12) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--gold);
+      pointer-events: none; z-index: 100;
     }
 
     .page-wrapper {
@@ -59,8 +51,8 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 24px;
-      padding: 48px 0 32px;
-      border-bottom: 1px solid var(--border);
+      padding: 52px 0 32px;
+      border-bottom: 1.5px solid var(--border);
       flex-wrap: wrap;
     }
 
@@ -76,6 +68,7 @@
       letter-spacing: .2em;
       text-transform: uppercase;
       color: var(--gold);
+      font-weight: 500;
     }
 
     .brand-title {
@@ -94,6 +87,7 @@
     .year-pill-group {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .year-pill {
@@ -102,21 +96,23 @@
       letter-spacing: .05em;
       padding: 10px 22px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface);
+      border: 1.5px solid var(--border);
+      background: var(--card);
       color: var(--muted);
       cursor: pointer;
       transition: all .2s;
+      font-weight: 500;
     }
 
     .year-pill:hover {
       border-color: var(--gold-dim);
       color: var(--text);
+      background: var(--surface);
     }
 
     .year-pill.active {
       background: var(--gold);
-      color: #0a0a0c;
+      color: #fff;
       border-color: var(--gold);
       font-weight: 500;
     }
@@ -156,12 +152,13 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--muted);
+      font-weight: 500;
     }
 
     select {
       appearance: none;
       background: var(--card);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
@@ -169,16 +166,16 @@
       border-radius: 8px;
       cursor: pointer;
       transition: border-color .2s, box-shadow .2s;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7a8c' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A9A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 12px center;
       width: 100%;
     }
 
     select:hover, select:focus {
-      border-color: var(--gold-dim);
+      border-color: var(--gold);
       outline: none;
-      box-shadow: 0 0 0 2px rgba(232,196,68,.1);
+      box-shadow: 0 0 0 3px rgba(193,68,14,.1);
     }
 
     /* ── TEAM STATS ── */
@@ -194,19 +191,20 @@
 
     .stat-card {
       background: var(--card);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       border-radius: 12px;
       padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: border-color .2s, transform .2s;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
       animation: fadeUp .5s ease both;
     }
 
     .stat-card:hover {
-      border-color: var(--gold-dim);
+      border-color: var(--gold);
       transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(193,68,14,.1);
     }
 
     .stat-label {
@@ -215,6 +213,7 @@
       letter-spacing: .14em;
       text-transform: uppercase;
       color: var(--muted);
+      font-weight: 500;
     }
 
     .stat-value {
@@ -238,16 +237,18 @@
     }
 
     .section-divider-label {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 18px;
-      letter-spacing: .1em;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
       color: var(--muted);
       white-space: nowrap;
+      font-weight: 500;
     }
 
     .section-divider-line {
       flex: 1;
-      height: 1px;
+      height: 1.5px;
       background: var(--border);
     }
 
@@ -270,17 +271,19 @@
       color: var(--muted);
       padding: 10px 14px;
       text-align: left;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1.5px solid var(--border);
+      font-weight: 500;
     }
 
     .results-table tbody tr {
       background: var(--card);
-      transition: background .15s;
+      transition: background .15s, box-shadow .15s;
       animation: fadeUp .4s ease both;
     }
 
     .results-table tbody tr:hover {
-      background: #1f1f2a;
+      background: var(--surface);
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
     }
 
     .results-table tbody td {
@@ -305,20 +308,22 @@
       padding: 3px 8px;
       border-radius: 4px;
       text-transform: uppercase;
+      font-weight: 600;
     }
 
     .result-badge.win {
-      background: rgba(232,196,68,.15);
+      background: rgba(193,68,14,.12);
       color: var(--gold);
     }
 
     .result-badge.loss {
-      background: rgba(192,57,43,.15);
-      color: #e05c4b;
+      background: rgba(138,138,154,.12);
+      color: var(--muted);
     }
 
     .wrestler-name {
-      font-weight: 500;
+      font-weight: 600;
+      color: var(--text);
     }
 
     .wrestler-school {
@@ -349,7 +354,7 @@
     .loading-dot:nth-child(3) { animation-delay: .4s; }
 
     @keyframes pulse {
-      0%, 100% { opacity: .2; transform: scale(.8); }
+      0%, 100% { opacity: .25; transform: scale(.8); }
       50%       { opacity: 1;  transform: scale(1.1); }
     }
 
@@ -363,6 +368,7 @@
     @media (max-width: 600px) {
       .filter-group { min-width: 130px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
+      header { padding: 36px 0 24px; }
     }
   </style>
 </head>
