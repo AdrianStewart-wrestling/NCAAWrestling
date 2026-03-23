@@ -6421,14 +6421,14 @@ const resultData = [
     result: "Dec 5-0"
   },
   {
-    round: "Finals",
+     round: "Finals",
     weight: "133",
     bout: 632,
-    winner: "Daton Fix",
-    winner_school: "Oklahoma State",
-    loser: "Nick Suriano",
-    loser_school: "Rutgers",
-    result: "Dec 4-2"
+    winner: "Nick Suriano",
+    winner_school: "Rutgers",
+    loser: "Daton Fix",
+    loser_school: "Oklahoma State",
+    result: "SV-2 4-2"
   },
   {
     round: "Finals",
@@ -6504,10 +6504,10 @@ const resultData = [
     round: "Finals",
     weight: "285",
     bout: 640,
-    winner: "Derek White",
-    winner_school: "Oklahoma State",
-    loser: "Anthony Cassar",
-    loser_school: "Penn State",
-    result: "SV-1 3-1"
+    winner: "Anthony Cassar",
+    winner_school: "Penn State",
+    loser: "Derek White",
+    loser_school: "Oklahoma State",
+    result: "MD 10-1"
   },
 ];
