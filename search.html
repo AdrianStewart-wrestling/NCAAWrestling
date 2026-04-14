@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search — NCAA Wrestling Tournament History</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F5F3EE;
+      --surface:   #EDEAE3;
+      --card:      #FFFFFF;
+      --border:    #D4C9B8;
+      --gold:      #C1440E;
+      --gold-dim:  #9A3309;
+      --red:       #A32D2D;
+      --text:      #1A1A2E;
+      --muted:     #8A8A9A;
+      --accent:    #185FA5;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--gold);
+      pointer-events: none; z-index: 100;
+    }
+
+    .page-wrapper {
+      position: relative; z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 52px 0 32px;
+      border-bottom: 1.5px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .brand { display: flex; flex-direction: column; gap: 4px; }
+
+    .brand-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .brand-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 7vw, 80px);
+      letter-spacing: .04em;
+      line-height: .9;
+      color: var(--text);
+    }
+
+    .brand-title span { color: var(--gold); }
+
+    .nav-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      transition: all .2s;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── SEARCH AREA ── */
+    .search-section {
+      margin-top: 36px;
+      animation: fadeUp .4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .search-box-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    #searchInput {
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      padding: 18px 18px 18px 52px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    #searchInput:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(193,68,14,.1);
+    }
+
+    #searchInput::placeholder { color: var(--muted); }
+
+    /* ── FILTERS ── */
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .filter-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    select {
+      appearance: none;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 10px 36px 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color .2s, box-shadow .2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A9A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      width: 100%;
+    }
+
+    select:hover, select:focus {
+      border-color: var(--gold);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(193,68,14,.1);
+    }
+
+    /* ── TABS ── */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 12px 20px;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1.5px;
+      cursor: pointer;
+      transition: color .2s, border-color .2s;
+    }
+
+    .tab-btn:hover { color: var(--text); }
+
+    .tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ── STATUS BAR ── */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      min-height: 24px;
+    }
+
+    .result-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .loading-inline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .dot:nth-child(2) { animation-delay: .2s; }
+    .dot:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .25; transform: scale(.8); }
+      50%       { opacity: 1;  transform: scale(1.1); }
+    }
+
+    /* ── RESULTS TABLE ── */
+    .results-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 4px;
+      font-size: 14px;
+    }
+
+    .results-table thead th {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1.5px solid var(--border);
+      font-weight: 500;
+    }
+
+    .results-table tbody tr {
+      background: var(--card);
+      transition: background .15s, box-shadow .15s;
+      animation: fadeUp .3s ease both;
+    }
+
+    .results-table tbody tr:hover {
+      background: var(--surface);
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .results-table tbody td {
+      padding: 12px 14px;
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .results-table tbody td:first-child { border-radius: 8px 0 0 8px; }
+    .results-table tbody td:last-child  { border-radius: 0 8px 8px 0; }
+
+    .year-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(193,68,14,.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .round-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+
+    .wrestler-name { font-weight: 600; }
+    .wrestler-school { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .result-badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .06em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .badge-fall { background: rgba(163,45,45,.12); color: var(--red); }
+    .badge-tf   { background: rgba(24,95,165,.12);  color: var(--accent); }
+    .badge-md   { background: rgba(193,68,14,.12);  color: var(--gold); }
+    .badge-dec  { background: rgba(138,138,154,.12);color: var(--muted); }
+    .badge-ot   { background: rgba(26,26,46,.08);   color: var(--text); }
+
+    /* ── WRESTLER CARDS ── */
+    .wrestler-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      transition: border-color .2s, box-shadow .2s;
+      animation: fadeUp .3s ease both;
+    }
+
+    .wrestler-card:hover {
+      border-color: var(--gold-dim);
+      box-shadow: 0 4px 16px rgba(193,68,14,.08);
+    }
+
+    .wrestler-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .wrestler-card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: .04em;
+      color: var(--text);
+    }
+
+    .wrestler-card-school {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .wl-display {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .wl-wins {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .wl-losses {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--muted);
+      line-height: 1;
+    }
+
+    .wl-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .wrestler-matches {
+      border-top: 1.5px solid var(--border);
+      padding-top: 12px;
+    }
+
+    .wrestler-match-row {
+      display: grid;
+      grid-template-columns: 60px 90px 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--surface);
+      font-size: 13px;
+    }
+
+    .wrestler-match-row:last-child { border-bottom: none; }
+
+    .match-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); font-weight: 600; }
+    .match-round { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+    .match-opp { color: var(--text); }
+    .match-opp-school { font-size: 11px; color: var(--muted); }
+    .match-outcome { font-weight: 700; font-size: 12px; }
+    .match-outcome.w { color: var(--gold); }
+    .match-outcome.l { color: var(--muted); }
+    .match-score { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); text-align: right; }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      line-height: 1;
+      color: var(--gold);
+    }
+
+    .stat-sub { font-size: 12px; color: var(--muted); }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0 16px;
+    }
+
+    .section-divider-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .section-divider-line {
+      flex: 1;
+      height: 1.5px;
+      background: var(--border);
+    }
+
+    .top-list-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--surface);
+      font-size: 14px;
+    }
+
+    .top-list-row:last-child { border-bottom: none; }
+
+    .top-rank {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      width: 24px;
+    }
+
+    .top-name { flex: 1; margin-left: 12px; }
+    .top-school { font-size: 12px; color: var(--muted); }
+
+    .top-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--gold);
+    }
+
+    /* ── EMPTY ── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      letter-spacing: .08em;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+
+    @media (max-width: 600px) {
+      .wrestler-match-row { grid-template-columns: 50px 70px 1fr auto; }
+      .match-score { display: none; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <header>
+    <div class="brand">
+      <span class="brand-eyebrow">NCAA Division I</span>
+      <h1 class="brand-title">WRESTLING<br><span>Search</span></h1>
+    </div>
+    <a href="index.html" class="nav-link">← Results</a>
+  </header>
+
+  <div class="search-section">
+
+    <!-- SEARCH BOX -->
+    <div class="search-box-wrap">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="8.5" cy="8.5" r="5.5" stroke="#8A8A9A" stroke-width="1.5"/>
+        <path d="M13 13l4 4" stroke="#8A8A9A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search wrestler, school…" oninput="runSearch()" autocomplete="off" />
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters-row">
+      <div class="filter-group">
+        <span class="filter-label">Year</span>
+        <select id="yearFilter" onchange="runSearch()">
+          <option value="">All years</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Weight class</span>
+        <select id="weightFilter" onchange="runSearch()">
+          <option value="">All weights</option>
+          <option value="118">118 lbs</option>
+          <option value="123">123 lbs</option>
+          <option value="125">125 lbs</option>
+          <option value="126">126 lbs</option>
+          <option value="130">130 lbs</option>
+          <option value="133">133 lbs</option>
+          <option value="134">134 lbs</option>
+          <option value="137">137 lbs</option>
+          <option value="141">141 lbs</option>
+          <option value="145">145 lbs</option>
+          <option value="147">147 lbs</option>
+          <option value="149">149 lbs</option>
+          <option value="150">150 lbs</option>
+          <option value="155">155 lbs</option>
+          <option value="157">157 lbs</option>
+          <option value="160">160 lbs</option>
+          <option value="165">165 lbs</option>
+          <option value="167">167 lbs</option>
+          <option value="174">174 lbs</option>
+          <option value="175">175 lbs</option>
+          <option value="177">177 lbs</option>
+          <option value="184">184 lbs</option>
+          <option value="190">190 lbs</option>
+          <option value="197">197 lbs</option>
+          <option value="275">275 lbs</option>
+          <option value="285">285 lbs</option>
+          <option value="UNL">Unlimited / HWT</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Round</span>
+        <select id="roundFilter" onchange="runSearch()">
+          <option value="">All rounds</option>
+          <option value="Finals">Finals</option>
+          <option value="SemiFinals">Semifinals</option>
+          <option value="QtrFinals">Quarterfinals</option>
+          <option value="3rdPlace">3rd place</option>
+          <option value="5thPlace">5th place</option>
+          <option value="7thPlace">7th place</option>
+          <option value="ConsSemi">Cons. semis</option>
+          <option value="ConsR4">Cons. round 4</option>
+          <option value="ConsR3">Cons. round 3</option>
+          <option value="ConsR2">Cons. round 2</option>
+          <option value="ConsR1">Cons. round 1</option>
+          <option value="ChampR2">Champ round 2</option>
+          <option value="ChampR1">Champ round 1</option>
+          <option value="Prelims">Prelims</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Result type</span>
+        <select id="resultFilter" onchange="runSearch()">
+          <option value="">All results</option>
+          <option value="fall">Pins (falls)</option>
+          <option value="tf">Tech falls</option>
+          <option value="md">Major decisions</option>
+          <option value="dec">Decisions</option>
+          <option value="ot">Overtime / SV</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('matches', this)">Matches</button>
+      <button class="tab-btn" onclick="switchTab('wrestlers', this)">Wrestlers</button>
+      <button class="tab-btn" onclick="switchTab('stats', this)">Stats</button>
+    </div>
+
+    <!-- STATUS -->
+    <div class="status-bar">
+      <span class="result-count" id="resultCount"></span>
+      <span class="loading-inline" id="loadingIndicator">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span id="loadingText">Loading data…</span>
+      </span>
+    </div>
+
+    <!-- MATCHES TAB -->
+    <div id="tab-matches">
+      <table class="results-table" id="matchTable">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Round</th>
+            <th>Wt</th>
+            <th>Winner</th>
+            <th>Loser</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="matchBody"></tbody>
+      </table>
+      <div class="empty-state" id="matchEmpty" style="display:none;">No matches found</div>
+    </div>
+
+    <!-- WRESTLERS TAB -->
+    <div id="tab-wrestlers" style="display:none;">
+      <div id="wrestlerCards"></div>
+      <div class="empty-state" id="wrestlerEmpty" style="display:none;">No wrestlers found</div>
+    </div>
+
+    <!-- STATS TAB -->
+    <div id="tab-stats" style="display:none;">
+      <div id="statsPanel"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ── CONFIG: add every year you have a results{year}.js file for ──
+  const AVAILABLE_YEARS = [2026, 2025, 2024, 2023, 2022, 2021, 2019,
+                           1937, 1936, 1935, 1934, 1933, 1932, 1931, 1930, 1929, 1928];
+
+  // ── STATE ──
+  let allMatches = [];       // flat array of all match objects with .year added
+  let loadedYears = new Set();
+  let pendingYears = 0;
+  let currentTab = 'matches';
+
+  // ── POPULATE YEAR FILTER ──
+  const yearSel = document.getElementById('yearFilter');
+  AVAILABLE_YEARS.forEach(y => {
+    const o = document.createElement('option');
+    o.value = y; o.textContent = y;
+    yearSel.appendChild(o);
+  });
+
+  // ── LOAD ALL YEAR DATA ──
+  function loadYear(year) {
+    return new Promise(resolve => {
+      const s = document.createElement('script');
+      s.src = 'results' + year + '.js?v=' + Date.now();
+      s.onload = () => {
+        // results{year}.js sets window.resultData
+        if (typeof resultData !== 'undefined' && Array.isArray(resultData)) {
+          const tagged = resultData.map(m => ({ ...m, year }));
+          allMatches = allMatches.concat(tagged);
+          loadedYears.add(year);
+        }
+        // reset resultData so next year can set it fresh
+        window.resultData = undefined;
+        resolve();
+      };
+      s.onerror = () => resolve(); // skip missing years gracefully
+      document.body.appendChild(s);
+    });
+  }
+
+  async function loadAllYears() {
+    const indicator = document.getElementById('loadingIndicator');
+    const loadingText = document.getElementById('loadingText');
+
+    // Load years sequentially to avoid resultData collisions
+    for (let i = 0; i < AVAILABLE_YEARS.length; i++) {
+      const y = AVAILABLE_YEARS[i];
+      loadingText.textContent = 'Loading ' + y + '…';
+      await loadYear(y);
+    }
+
+    indicator.style.display = 'none';
+    runSearch();
+  }
+
+  // ── HELPERS ──
+  function getResultType(result) {
+    if (!result) return 'dec';
+    const r = result.toLowerCase();
+    if (r.startsWith('fall')) return 'fall';
+    if (r.startsWith('tf')) return 'tf';
+    if (r.startsWith('md')) return 'md';
+    if (r.includes('sv') || r.includes('tb') || r.includes('ot')) return 'ot';
+    return 'dec';
+  }
+
+  function resultBadge(result) {
+    const type = getResultType(result);
+    const map = { fall:['Pin','badge-fall'], tf:['Tech fall','badge-tf'], md:['Major dec','badge-md'], ot:['OT','badge-ot'], dec:['Decision','badge-dec'] };
+    const [label, cls] = map[type] || ['Decision','badge-dec'];
+    return `<span class="result-badge ${cls}">${label}</span>`;
+  }
+
+  function roundLabel(round) {
+    const map = { Finals:'Final', SemiFinals:'Semis', QtrFinals:'Qtrs', '3rdPlace':'3rd', '5thPlace':'5th', '7thPlace':'7th', ConsSemi:'Cons S', ConsR4:'Cons 4', ConsR3:'Cons 3', ConsR2:'Cons 2', ConsR1:'Cons 1', ChampR2:'Ch R2', ChampR1:'Ch R1', Prelims:'Pre' };
+    return map[round] || round;
+  }
+
+  const ROUND_ORDER = ['Prelims','ChampR1','ChampR2','QtrFinals','SemiFinals','Finals','ConsR1','ConsR2','ConsR3','ConsR4','ConsSemi','3rdPlace','5thPlace','7thPlace'];
+
+  // ── FILTER ──
+  function filterData() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const yr = document.getElementById('yearFilter').value;
+    const wt = document.getElementById('weightFilter').value;
+    const rd = document.getElementById('roundFilter').value;
+    const rt = document.getElementById('resultFilter').value;
+
+    return allMatches.filter(m => {
+      if (yr && String(m.year) !== yr) return false;
+      if (wt && String(m.weight) !== wt) return false;
+      if (rd && m.round !== rd) return false;
+      if (rt && getResultType(m.result) !== rt) return false;
+      if (q) {
+        const fields = [m.winner, m.loser, m.winner_school, m.loser_school].map(f => (f||'').toLowerCase());
+        if (!fields.some(f => f.includes(q))) return false;
+      }
+      return true;
+    });
+  }
+
+  // ── RENDER MATCHES ──
+  function renderMatches(data) {
+    const body = document.getElementById('matchBody');
+    const empty = document.getElementById('matchEmpty');
+    const count = document.getElementById('resultCount');
+
+    if (!data.length) {
+      body.innerHTML = '';
+      empty.style.display = 'block';
+      count.textContent = '';
+      return;
+    }
+
+    empty.style.display = 'none';
+    count.textContent = data.length.toLocaleString() + ' match' + (data.length !== 1 ? 'es' : '');
+
+    body.innerHTML = data.slice(0, 500).map((m, i) => `
+      <tr style="animation-delay:${Math.min(i*0.02, 0.4)}s">
+        <td><span class="year-tag">${m.year}</span></td>
+        <td><span class="round-tag">${roundLabel(m.round)}</span></td>
+        <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);">${m.weight}</td>
+        <td>
+          <div class="wrestler-name">${m.winner}</div>
+          <div class="wrestler-school">${m.winner_school || ''}</div>
+        </td>
+        <td>
+          <div style="color:var(--muted);">${m.loser}</div>
+          <div class="wrestler-school">${m.loser_school || ''}</div>
+        </td>
+        <td>
+          ${resultBadge(m.result)}
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px;">${m.result}</div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ── RENDER WRESTLERS ──
+  function renderWrestlers(data) {
+    const cards = document.getElementById('wrestlerCards');
+    const empty = document.getElementById('wrestlerEmpty');
+    const count = document.getElementById('resultCount');
+
+    // Build wrestler map
+    const wrestlers = {};
+    data.forEach(m => {
+      [
+        { key: m.winner, school: m.winner_school, won: true, match: m },
+        { key: m.loser,  school: m.loser_school,  won: false, match: m }
+      ].forEach(({ key, school, won, match }) => {
+        if (!key) return;
+        if (!wrestlers[key]) wrestlers[key] = { name: key, schools: new Set(), wins: [], losses: [], matches: [] };
+        wrestlers[key].schools.add(school || '');
+        wrestlers[key].matches.push({ ...match, won });
+        if (won) wrestlers[key].wins.push(match);
+        else wrestlers[key].losses.push(match);
+      });
+    });
+
+    const list = Object.values(wrestlers)
+      .filter(w => w.matches.length > 0)
+      .sort((a, b) => b.wins.length - a.wins.length || a.losses.length - b.losses.length);
+
+    if (!list.length) {
+      cards.innerHTML = '';
+      empty.style.display = 'block';
+      count.textContent = '';
+      return;
+    }
+
+    empty.style.display = 'none';
+    count.textContent = list.length.toLocaleString() + ' wrestler' + (list.length !== 1 ? 's' : '');
+
+    cards.innerHTML = list.slice(0, 50).map((w, i) => {
+      const school = [...w.schools].filter(Boolean).join(' / ');
+      const total = w.wins.length + w.losses.length;
+      const pct = total ? Math.round(w.wins.length / total * 100) : 0;
+      const sortedMatches = w.matches.slice().sort((a, b) => {
+        const yearDiff = a.year - b.year;
+        if (yearDiff !== 0) return yearDiff;
+        return ROUND_ORDER.indexOf(a.round) - ROUND_ORDER.indexOf(b.round);
+      });
+
+      return `<div class="wrestler-card" style="animation-delay:${Math.min(i*0.04,0.5)}s">
+        <div class="wrestler-card-header">
+          <div>
+            <div class="wrestler-card-name">${w.name}</div>
+            <div class="wrestler-card-school">${school}</div>
+          </div>
+          <div class="wl-display">
+            <div style="text-align:center">
+              <div class="wl-wins">${w.wins.length}</div>
+              <div class="wl-label">Wins</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--border);align-self:center;">–</div>
+            <div style="text-align:center">
+              <div class="wl-losses">${w.losses.length}</div>
+              <div class="wl-label">Losses</div>
+            </div>
+            <div style="text-align:center;margin-left:8px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">${pct}%</div>
+              <div class="wl-label">Win %</div>
+            </div>
+          </div>
+        </div>
+        <div class="wrestler-matches">
+          ${sortedMatches.map(m => `
+            <div class="wrestler-match-row">
+              <span class="match-year">${m.year}</span>
+              <span class="match-round">${roundLabel(m.round)} · ${m.weight}</span>
+              <div>
+                <div class="match-opp">${m.won ? m.loser : m.winner}</div>
+                <div class="match-opp-school">${m.won ? (m.loser_school||'') : (m.winner_school||'')}</div>
+              </div>
+              <span class="match-outcome ${m.won ? 'w' : 'l'}">${m.won ? 'W' : 'L'}</span>
+              <span class="match-score">${m.result}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── RENDER STATS ──
+  function renderStats(data) {
+    const panel = document.getElementById('statsPanel');
+    const count = document.getElementById('resultCount');
+
+    if (!data.length) {
+      panel.innerHTML = '<div class="empty-state">No data for current filters</div>';
+      count.textContent = '';
+      return;
+    }
+
+    const falls = data.filter(m => getResultType(m.result) === 'fall').length;
+    const tfs   = data.filter(m => getResultType(m.result) === 'tf').length;
+    const mds   = data.filter(m => getResultType(m.result) === 'md').length;
+    const decs  = data.filter(m => getResultType(m.result) === 'dec').length;
+    const ots   = data.filter(m => getResultType(m.result) === 'ot').length;
+    const bonus = falls + tfs + mds;
+    const bonusPct = Math.round(bonus / data.length * 100);
+
+    count.textContent = data.length.toLocaleString() + ' matches';
+
+    // School wins
+    const schoolWins = {};
+    data.forEach(m => { if (m.winner_school) schoolWins[m.winner_school] = (schoolWins[m.winner_school]||0)+1; });
+    const topSchools = Object.entries(schoolWins).sort((a,b)=>b[1]-a[1]).slice(0,10);
+
+    // Most wins by wrestler
+    const wrestlerWins = {};
+    data.forEach(m => { if (m.winner) wrestlerWins[m.winner] = (wrestlerWins[m.winner]||0)+1; });
+    const topWrestlers = Object.entries(wrestlerWins).sort((a,b)=>b[1]-a[1]).slice(0,10);
+
+    // Champs (Finals winners)
+    const champs = data.filter(m => m.round === 'Finals');
+
+    panel.innerHTML = `
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Total matches</div><div class="stat-value">${data.length.toLocaleString()}</div></div>
+        <div class="stat-card"><div class="stat-label">Bonus rate</div><div class="stat-value">${bonusPct}%</div><div class="stat-sub">pins · tech falls · majors</div></div>
+        <div class="stat-card"><div class="stat-label">Pins</div><div class="stat-value">${falls}</div></div>
+        <div class="stat-card"><div class="stat-label">Tech falls</div><div class="stat-value">${tfs}</div></div>
+        <div class="stat-card"><div class="stat-label">Major decisions</div><div class="stat-value">${mds}</div></div>
+        <div class="stat-card"><div class="stat-label">Decisions</div><div class="stat-value">${decs}</div></div>
+        <div class="stat-card"><div class="stat-label">OT matches</div><div class="stat-value">${ots}</div></div>
+        <div class="stat-card"><div class="stat-label">Champions</div><div class="stat-value">${champs.length}</div></div>
+      </div>
+
+      <div class="section-divider">
+        <span class="section-divider-label">Top schools by wins</span>
+        <div class="section-divider-line"></div>
+      </div>
+      <div>
+        ${topSchools.map(([school, wins], i) => `
+          <div class="top-list-row">
+            <span class="top-rank">${i+1}</span>
+            <span class="top-name">${school}</span>
+            <span class="top-value">${wins}</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="section-divider">
+        <span class="section-divider-label">Most wins — individual wrestlers</span>
+        <div class="section-divider-line"></div>
+      </div>
+      <div>
+        ${topWrestlers.map(([name, wins], i) => `
+          <div class="top-list-row">
+            <span class="top-rank">${i+1}</span>
+            <span class="top-name">${name}</span>
+            <span class="top-value">${wins}</span>
+          </div>
+        `).join('')}
+      </div>
+
+      ${champs.length ? `
+      <div class="section-divider">
+        <span class="section-divider-label">Champions</span>
+        <div class="section-divider-line"></div>
+      </div>
+      <table class="results-table">
+        <thead><tr><th>Year</th><th>Weight</th><th>Champion</th><th>School</th><th>Final</th></tr></thead>
+        <tbody>
+          ${champs.sort((a,b)=>b.year-a.year).map(m=>`
+            <tr>
+              <td><span class="year-tag">${m.year}</span></td>
+              <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);">${m.weight}</td>
+              <td><div class="wrestler-name">${m.winner}</div></td>
+              <td><div class="wrestler-school" style="font-size:13px;">${m.winner_school||''}</div></td>
+              <td>${resultBadge(m.result)}<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:6px;">${m.result}</span></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>` : ''}
+    `;
+  }
+
+  // ── MAIN SEARCH ──
+  function runSearch() {
+    const data = filterData();
+    if (currentTab === 'matches') renderMatches(data);
+    else if (currentTab === 'wrestlers') renderWrestlers(data);
+    else renderStats(data);
+  }
+
+  // ── TAB SWITCH ──
+  function switchTab(tab, btn) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-matches').style.display   = tab === 'matches'   ? 'block' : 'none';
+    document.getElementById('tab-wrestlers').style.display = tab === 'wrestlers' ? 'block' : 'none';
+    document.getElementById('tab-stats').style.display     = tab === 'stats'     ? 'block' : 'none';
+    runSearch();
+  }
+
+  // ── BOOT ──
+  loadAllYears();
+</script>
+</body>
+</html>
