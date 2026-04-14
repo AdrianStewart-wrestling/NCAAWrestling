@@ -743,11 +743,11 @@
   // ── HELPERS ──
   function getResultType(result) {
     if (!result) return 'dec';
-    const r = result.toLowerCase();
+    const r = result.toLowerCase().trim();
     if (r.startsWith('fall')) return 'fall';
-    if (r.startsWith('tf')) return 'tf';
-    if (r.startsWith('md')) return 'md';
-    if (r.includes('sv') || r.includes('tb') || r.includes('ot')) return 'ot';
+    if (r.startsWith('tf-') || r.startsWith('tf ')) return 'tf';
+    if (r.startsWith('md ') || r.startsWith('md\t') || /^md\d/.test(r)) return 'md';
+    if (r.startsWith('sv-') || r.startsWith('sv ') || r.startsWith('tb-') || r.startsWith('tb ')) return 'ot';
     return 'dec';
   }
 
@@ -930,14 +930,27 @@
 
     count.textContent = data.length.toLocaleString() + ' matches';
 
-    // School wins
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+
+    // School wins — scope to winning school matching search query if one exists
     const schoolWins = {};
-    data.forEach(m => { if (m.winner_school) schoolWins[m.winner_school] = (schoolWins[m.winner_school]||0)+1; });
+    data.forEach(m => {
+      if (!m.winner_school) return;
+      if (!q || m.winner_school.toLowerCase().includes(q)) {
+        schoolWins[m.winner_school] = (schoolWins[m.winner_school]||0)+1;
+      }
+    });
     const topSchools = Object.entries(schoolWins).sort((a,b)=>b[1]-a[1]).slice(0,10);
 
-    // Most wins by wrestler
+    // Most wins by wrestler — scope to wrestlers/schools matching search query
     const wrestlerWins = {};
-    data.forEach(m => { if (m.winner) wrestlerWins[m.winner] = (wrestlerWins[m.winner]||0)+1; });
+    data.forEach(m => {
+      if (!m.winner) return;
+      const winnerMatchesQ = !q || m.winner.toLowerCase().includes(q) || (m.winner_school||'').toLowerCase().includes(q);
+      if (winnerMatchesQ) {
+        wrestlerWins[m.winner] = (wrestlerWins[m.winner]||0)+1;
+      }
+    });
     const topWrestlers = Object.entries(wrestlerWins).sort((a,b)=>b[1]-a[1]).slice(0,10);
 
     // Champs (Finals winners)
