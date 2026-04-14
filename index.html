@@ -83,6 +83,43 @@
       color: var(--gold);
     }
 
+    /* ── HEADER RIGHT ── */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── SEARCH LINK ── */
+    .search-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--gold);
+      background: var(--card);
+      border: 1.5px solid var(--gold);
+      border-radius: 999px;
+      padding: 10px 20px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .search-nav-btn:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .search-nav-btn svg {
+      flex-shrink: 0;
+    }
+
     /* ── YEAR SELECTOR ── */
     .year-pill-group {
       display: flex;
@@ -381,7 +418,16 @@
         <span class="brand-eyebrow">NCAA Division I</span>
         <h1 class="brand-title">WRESTLING<br><span>Championship Results</span></h1>
       </div>
-      <div id="yearPillGroup" class="year-pill-group"></div>
+      <div class="header-right">
+        <a href="search.html" class="search-nav-btn">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+            <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M13 13l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Search history
+        </a>
+        <div id="yearPillGroup" class="year-pill-group"></div>
+      </div>
     </header>
 
     <!-- HIDDEN YEAR SELECT (keep for JS compat) -->
