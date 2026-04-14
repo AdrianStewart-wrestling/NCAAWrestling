@@ -705,23 +705,48 @@
   });
 
   // ── LOAD ALL YEAR DATA ──
+  // Fetch the JS file as text, rewrite 'const resultData' to 'window.resultData',
+  // then execute it — this works regardless of how each file declares its data.
   function loadYear(year) {
     return new Promise(resolve => {
-      const s = document.createElement('script');
-      s.src = 'results' + year + '.js?v=' + Date.now();
-      s.onload = () => {
-        // results{year}.js sets window.resultData
-        if (typeof resultData !== 'undefined' && Array.isArray(resultData)) {
-          const tagged = resultData.map(m => ({ ...m, year }));
-          allMatches = allMatches.concat(tagged);
-          loadedYears.add(year);
-        }
-        // reset resultData so next year can set it fresh
-        window.resultData = undefined;
-        resolve();
-      };
-      s.onerror = () => resolve(); // skip missing years gracefully
-      document.body.appendChild(s);
+      fetch('results' + year + '.js?v=' + Date.now())
+        .then(r => r.ok ? r.text() : Promise.reject())
+        .then(src => {
+          // Rewrite const/let/var resultData -> window.resultData so it survives eval scope
+          const patched = src
+            .replace(/^\s*(const|let|var)\s+resultData\s*=/m, 'window.resultData =')
+            .replace(/^\s*window\.resultData\s*=/m, 'window.resultData =');
+
+          window.resultData = undefined;
+          const script = document.createElement('script');
+          script.textContent = patched;
+          document.body.appendChild(script);
+
+          const data = window.resultData;
+          if (data) {
+            if (!Array.isArray(data) && data.individual_champions) {
+              // Early historical years: object format with individual_champions
+              const converted = data.individual_champions.map(c => ({
+                round: 'Finals',
+                weight: c.weight_class,
+                winner: c.wrestler,
+                winner_school: c.school,
+                loser: '',
+                loser_school: '',
+                result: 'Champion'
+              }));
+              allMatches = allMatches.concat(converted.map(m => ({ ...m, year })));
+              loadedYears.add(year);
+            } else if (Array.isArray(data) && data.length > 0) {
+              allMatches = allMatches.concat(data.map(m => ({ ...m, year })));
+              loadedYears.add(year);
+            }
+          }
+
+          window.resultData = undefined;
+          resolve();
+        })
+        .catch(() => resolve()); // skip missing years gracefully
     });
   }
 
