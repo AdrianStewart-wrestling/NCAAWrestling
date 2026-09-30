@@ -1,4 +1,4 @@
-const resultdata = [
+const resultData = [
   {
     "round": "Prelims",
     "weight": "125",
