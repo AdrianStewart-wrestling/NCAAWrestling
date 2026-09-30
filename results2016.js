@@ -1,4 +1,4 @@
-window.NCAA_RESULTS_2016 = [
+const resultdata = [
   {
     "round": "Prelims",
     "weight": "125",
