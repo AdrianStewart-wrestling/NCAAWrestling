@@ -4,30 +4,30 @@ const resultData = [
     round: "Prelims",
     weight: "125",
     bout: 1,
-    winner: "Kysen Terukina",
-    winner_school: "Iowa State",
-    loser: "Patrick McCormick",
-    loser_school: "Virginia",
+    winner: "Patrick McCormick",
+    winner_school: "Virginia",
+    loser: "Kysen Terukina",
+    loser_school: "Iowa State",
     result: "Dec 6-2"
   },
   {
     round: "Prelims",
     weight: "133",
     bout: 2,
-    winner: "Bryce West",
-    winner_school: "Northern Illinois",
-    loser: "Cole Rhone",
-    loser_school: "Bloomsburg",
+    winner: "Cole Rhone",
+    winner_school: "Bloomsburg",
+    loser: "Bryce West",
+    loser_school: "Northern Illinois",
     result: "Dec 13-10"
   },
   {
     round: "Prelims",
     weight: "141",
     bout: 3,
-    winner: "Vinny Vespa",
-    winner_school: "Hofstra",
-    loser: "Cayden Rooks",
-    loser_school: "Indiana",
+    winner: "Cayden Rooks",
+    winner_school: "Indiana",
+    loser: "Vinny Vespa",
+    loser_school: "Hofstra",
     result: "MD 10-1"
   },
   {
@@ -64,20 +64,20 @@ const resultData = [
     round: "Prelims",
     weight: "174",
     bout: 87,
-    winner: "Jacob Nolan",
-    winner_school: "Binghamton",
-    loser: "Drew Hughes",
-    loser_school: "Michigan State",
+    winner: "Drew Hughes",
+    winner_school: "Michigan State",
+    loser: "Jacob Nolan",
+    loser_school: "Binghamton",
     result: "Dec 7-0"
   },
   {
     round: "Prelims",
     weight: "184",
     bout: 88,
-    winner: "Joe Accousti",
-    winner_school: "Sacred Heart",
-    loser: "Jhaquan Anderson",
-    loser_school: "George Washington",
+    winner: "Jhaquan Anderson",
+    winner_school: "Gardner-Webb",
+    loser: "Joe Accousti",
+    loser_school: "Sacred Heart",
     result: "SV-1 3-1"
   },
   {
@@ -157,10 +157,10 @@ const resultData = [
     round: "ChampR1",
     weight: "125",
     bout: 12,
-    winner: "Drew Hildebrandt",
-    winner_school: "Central Michigan",
-    loser: "Liam Cronin",
-    loser_school: "Nebraska",
+    winner: "Liam Cronin",
+    winner_school: "Nebraska",
+    loser: "Jake Ferri",
+    loser_school: "Kent State",
     result: "Fall 6:29"
   },
   {
@@ -482,7 +482,7 @@ const resultData = [
     winner: "Brian Courtney",
     winner_school: "Virginia",
     loser: "DJ Lloren",
-    loser_school: "Florida State",
+    loser_school: "Fresno State",
     result: "Dec 10-5"
   },
   {
@@ -591,7 +591,7 @@ const resultData = [
     weight: "149",
     bout: 55,
     winner: "Kyle Parco",
-    winner_school: "Florida State",
+    winner_school: "Fresno State",
     loser: "PJ Ogunsanya",
     loser_school: "Army West Point",
     result: "SV-1 7-5"
@@ -663,7 +663,7 @@ const resultData = [
     winner: "Brock Mauller",
     winner_school: "Missouri",
     loser: "Marcus Robinson",
-    loser_school: "CSU",
+    loser_school: "Cleveland State",
     result: "MD 12-1"
   },
   {
@@ -945,7 +945,7 @@ const resultData = [
     winner: "Zach Hartman",
     winner_school: "Bucknell",
     loser: "Rodrick Mosley",
-    loser_school: "George Washington",
+    loser_school: "Gardner-Webb",
     result: "Dec 8-6"
   },
   {
@@ -1227,7 +1227,7 @@ const resultData = [
     winner: "Aaron Brooks",
     winner_school: "Penn State",
     loser: "Jhaquan Anderson",
-    loser_school: "George Washington",
+    loser_school: "Gardner-Webb",
     result: "TF-1.5 5:26 (17-1)"
   },
   {
@@ -1347,7 +1347,7 @@ const resultData = [
     winner: "Brit Wilson",
     winner_school: "Northern Illinois",
     loser: "DeAndre Nassar",
-    loser_school: "CSU",
+    loser_school: "Cleveland State",
     result: "Dec 10-3"
   },
   {
@@ -1408,7 +1408,7 @@ const resultData = [
     winner: "Noah Adams",
     winner_school: "West Virginia",
     loser: "Benjamin Smith",
-    loser_school: "CSU",
+    loser_school: "Cleveland State",
     result: "Dec 6-0"
   },
   {
@@ -1741,7 +1741,7 @@ const resultData = [
     winner: "Greg Gaxiola",
     winner_school: "Hofstra",
     loser: "Marcus Robinson",
-    loser_school: "CSU",
+    loser_school: "Cleveland State",
     result: "Dec 4-0"
   },
   {
@@ -2047,7 +2047,7 @@ const resultData = [
     winner: "Sammy Sasso",
     winner_school: "Ohio State",
     loser: "Kyle Parco",
-    loser_school: "Florida State",
+    loser_school: "Fresno State",
     result: "Dec 11-10"
   },
   {
@@ -2806,7 +2806,7 @@ const resultData = [
     weight: "141",
     bout: 215,
     winner: "DJ Lloren",
-    winner_school: "Florida State",
+    winner_school: "Fresno State",
     loser: "Chase Zollmann",
     loser_school: "Wyoming",
     result: "MD 11-3"
@@ -2927,7 +2927,7 @@ const resultData = [
     weight: "149",
     bout: 239,
     winner: "Kyle Parco",
-    winner_school: "Florida State",
+    winner_school: "Fresno State",
     loser: "Cory Crooks",
     loser_school: "Arizona State",
     result: "Dec 8-6"
@@ -2990,7 +2990,7 @@ const resultData = [
     winner: "Benjamin Barton",
     winner_school: "Campbell",
     loser: "Connor Brady",
-    loler_school: "Virginia Tech",
+    loser_school: "Virginia Tech",
     result: "Dec 8-7"
   },
   {
@@ -3039,7 +3039,7 @@ const resultData = [
     weight: "165",
     bout: 266,
     winner: "Rodrick Mosley",
-    winner_school: "George Washington",
+    winner_school: "Gardner-Webb",
     loser: "Jake Keating",
     loser_school: "Virginia",
     result: "Dec 9-7"
@@ -3183,7 +3183,7 @@ const resultData = [
     winner: "Max Lyon",
     winner_school: "Purdue",
     loser: "Jhaquan Anderson",
-    loser_school: "George Washington",
+    loser_school: "Gardner-Webb",
     result: "MD 14-3"
   },
   {
@@ -3243,7 +3243,7 @@ const resultData = [
     winner: "Tate Samuelson",
     winner_school: "Wyoming",
     loser: "DeAndre Nassar",
-    loser_school: "CSU",
+    loser_school: "Cleveland State",
     result: "Dec 3-2"
   },
   {
@@ -3272,7 +3272,7 @@ const resultData = [
     weight: "197",
     bout: 312,
     winner: "Benjamin Smith",
-    winner_school: "CSU",
+    winner_school: "Cleveland State",
     loser: "J.J. Dixon",
     loser_school: "Oregon State",
     result: "MD 12-4"
@@ -4032,7 +4032,7 @@ const resultData = [
     winner: "Dylan Duncan",
     winner_school: "Illinois",
     loser: "DJ Lloren",
-    loser_school: "Florida State",
+    loser_school: "Fresno State",
     result: "MD 11-3"
   },
   {
@@ -4151,7 +4151,7 @@ const resultData = [
     weight: "149",
     bout: 392,
     winner: "Kyle Parco",
-    winner_school: "Florida State",
+    winner_school: "Fresno State",
     loser: "Cory Crooks",
     loser_school: "Arizona State",
     result: "Dec 3-2"
@@ -4184,7 +4184,7 @@ const resultData = [
     winner: "Jacori Teemer",
     winner_school: "Arizona State",
     loser: "Andrew Cerniglia",
-    loler_school: "Navy",
+    loser_school: "Navy",
     result: "MD 15-7"
   },
   {
@@ -4265,7 +4265,7 @@ const resultData = [
     winner: "Cameron Amine",
     winner_school: "Michigan",
     loser: "Rodrick Mosley",
-    loser_school: "George Washington",
+    loser_school: "Gardner-Webb",
     result: "Dec 4-2"
   },
   {
@@ -4498,7 +4498,7 @@ const resultData = [
     winner: "Cameron Caffey",
     winner_school: "Michigan State",
     loser: "Benjamin Smith",
-    loser_school: "CSU",
+    loser_school: "Cleveland State",
     result: "MD 12-4"
   },
   {
@@ -4803,7 +4803,7 @@ const resultData = [
     weight: "149",
     bout: 416,
     winner: "Kyle Parco",
-    winner_school: "Florida State",
+    winner_school: "Fresno State",
     loser: "Legend Lamer",
     loser_school: "Cal Poly",
     result: "Dec 3-2"
@@ -4980,7 +4980,7 @@ const resultData = [
     winner: "Cameron Caffey",
     winner_school: "Michigan State",
     loser: "Owen Pentz",
-    loler_school: "North Dakota State",
+    loser_school: "North Dakota State",
     result: "Fall 5:00"
   },
   {
@@ -5041,7 +5041,7 @@ const resultData = [
     winner: "Tate Orndorff",
     winner_school: "Ohio State",
     loser: "Brian Andrews",
-    loler_school: "Wyoming",
+    loser_school: "Wyoming",
     result: "TB-1 2-1"
   },
   {
@@ -5419,7 +5419,7 @@ const resultData = [
     winner: "Bryce Andonian",
     winner_school: "Virginia Tech",
     loser: "Kyle Parco",
-    loser_school: "Florida State",
+    loser_school: "Fresno State",
     result: "Dec 5-2"
   },
   // 157
@@ -5690,26 +5690,6 @@ const resultData = [
     loser: "Devin Schroder",
     loser_school: "Purdue",
     result: "SV-1 9-7"
-  },
-  {
-    round: "ConsQtr",
-    weight: "125",
-    bout: 563,
-    winner: "Killian Cardinale",
-    winner_school: "West Virginia",
-    loser: "Patrick McKee",
-    loser_school: "Minnesota",
-    result: "TB-2 6-5"
-  },
-  {
-    round: "ConsQtr",
-    weight: "125",
-    bout: 564,
-    winner: "Jakob Camacho",
-    winner_school: "NC State",
-    loser: "Michael DeAugustino",
-    loser_school: "Northwestern",
-    result: "Dec 9-2"
   },
   // 133
   {
@@ -6243,7 +6223,7 @@ const resultData = [
     winner: "Brock Mauller",
     winner_school: "Missouri",
     loser: "Yahya Thomas",
-    loler_school: "Northwestern",
+    loser_school: "Northwestern",
     result: "Dec 8-5"
   },
   {
@@ -6311,7 +6291,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "125",
-    bout: 601,
+    bout: 603,
     winner: "Patrick McKee",
     winner_school: "Minnesota",
     loser: "Taylor LaMont",
@@ -6321,7 +6301,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "133",
-    bout: 604,
+    bout: 606,
     winner: "Austin DeSanto",
     winner_school: "Iowa",
     loser: "Korbin Myers",
@@ -6331,7 +6311,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "141",
-    bout: 607,
+    bout: 609,
     winner: "Tariq Wilson",
     winner_school: "NC State",
     loser: "Sebastian Rivera",
@@ -6341,7 +6321,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "149",
-    bout: 610,
+    bout: 612,
     winner: "Boo Lewallen",
     winner_school: "Oklahoma State",
     loser: "Yahya Thomas",
@@ -6351,7 +6331,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "157",
-    bout: 613,
+    bout: 615,
     winner: "David Carr",
     winner_school: "Iowa State",
     loser: "Ryan Deakin",
@@ -6361,7 +6341,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "165",
-    bout: 616,
+    bout: 618,
     winner: "Jake Wentzel",
     winner_school: "Pittsburgh",
     loser: "Keegan O`Toole",
@@ -6371,7 +6351,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "174",
-    bout: 619,
+    bout: 621,
     winner: "Mikey Labriola",
     winner_school: "Nebraska",
     loser: "Bernie Truax",
@@ -6381,7 +6361,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "184",
-    bout: 622,
+    bout: 624,
     winner: "Parker Keckeisen",
     winner_school: "Northern Iowa",
     loser: "Hunter Bolen",
@@ -6391,7 +6371,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "197",
-    bout: 625,
+    bout: 627,
     winner: "Jacob Warner",
     winner_school: "Iowa",
     loser: "Myles Amine",
@@ -6401,7 +6381,7 @@ const resultData = [
   {
     round: "3rdPlace",
     weight: "285",
-    bout: 628,
+    bout: 630,
     winner: "Tony Cassioppi",
     winner_school: "Iowa",
     loser: "Cohlton Schultz",
